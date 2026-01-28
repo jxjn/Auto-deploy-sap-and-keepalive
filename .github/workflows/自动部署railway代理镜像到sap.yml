@@ -59,9 +59,12 @@ on:
         default: ''
 
 env:
-  MEMORY: 256M
-  DISK: 300M
-
+  DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE || 'ghcr.io/easytier/easytier:latest' }}
+  MEMORY: ${{ secrets.MEMORY || '1024M' }}
+  DISK: ${{ secrets.DISK || '2048M' }}
+  TZ: ${{ 'Asia/Shanghai' }}
+  network_mode: ${{ 'host' }}
+  command: ${{ '--hostname ltrp -i 10.1.1.11 --network-name skipjacks --network-secret nongshaopei12 -p tcp://public.easytier.cn:11010 -p tcp://public.easytier.top:11010' }}
 jobs:
   deploy-app:
     runs-on: ubuntu-latest
